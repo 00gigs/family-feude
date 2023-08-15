@@ -3,24 +3,25 @@
 const quesionsArea = $('#boardQuestions')
 const answerList = $('#answerList')
 const startbtn = $('#start')
-const questionDisplay = $('#boardQuestions')
+const buzzer = $('#submitBtn')
+const userAnswer = $('#userAnswer')
 const baseURL = 'https://opentdb.com/'
 const url = 'api.php'
 
+//starts then disables start button
+startbtn.on('click', disableButton);
 
-
-
-// get game session token to use from https://opentdb.com/api_config.php and
-// pass it through a fucntion that starts the game using that session token 
-
+function disableButton() {
+    document.querySelector('#start').disabled = true;
+}
 
 startbtn.on('click',btnStart)
-
 async function btnStart(){
     getToken()
     startGame()
 }
-
+// get game session token to use from https://opentdb.com/api_config.php and
+// pass it through a fucntion that starts the game using that session token 
 
 async function getToken(startGame){
     const authUrl = 'https://opentdb.com/api_token.php?command=request'
@@ -32,11 +33,9 @@ async function getToken(startGame){
     }
     
 }
-
-
+ 
 
 async function startGame(token){
-
     const res = await axios(
         {url: url,
         method: 'GET',
@@ -48,59 +47,83 @@ async function startGame(token){
         }
     }
     )
-
-
-
+  
+   
+       
+      
     
-    //data
-    // question0
-   const question0 = res.data.results[0].question
-   const answer0 = res.data.results[0].correct_answer
-   const incorrect0 = res.data.results[0].incorrect_answers
-    // question0
-    const question1 = res.data.results[1].question
-    const answer1 = res.data.results[1].correct_answer
-    const incorrect1 = res.data.results[1].incorrect_answers
-     // question0
-   const question2 = res.data.results[2].question
-   const answer2 = res.data.results[2].correct_answer
-   const incorrect2 = res.data.results[2].incorrect_answers
+
+    function maingame() {
+    
+//array for questions & answers
+    const QuestionsArray0 = [res.data.results[0].question,res.data.results[0].correct_answer,res.data.results[0].incorrect_answer]
+    const QuestionsArray1 = [res.data.results[1].question,res.data.results[1].correct_answer,res.data.results[1].incorrect_answer]
+    const QuestionsArray2 = [res.data.results[2].question,res.data.results[2].correct_answer,res.data.results[2].incorrect_answer]
+    const QuestionsArray3 = [res.data.results[3].question,res.data.results[3].correct_answer,res.data.results[3].incorrect_answer]
+    const QuestionsArray4 = [res.data.results[4].question,res.data.results[4].correct_answer,res.data.results[4].incorrect_answer]
+    const QuestionsArray5 = [res.data.results[5].question,res.data.results[5].correct_answer,res.data.results[5].incorrect_answer]
+    const QuestionsArray6 = [res.data.results[6].question,res.data.results[6].correct_answer,res.data.results[6].incorrect_answer]
+    const QuestionsArray7 = [res.data.results[7].question,res.data.results[7].correct_answer,res.data.results[7].incorrect_answer]
+    const QuestionsArray8 = [res.data.results[8].question,res.data.results[8].correct_answer,res.data.results[8].incorrect_answer]
+    const QuestionsArray9 = [res.data.results[9].question,res.data.results[9].correct_answer,res.data.results[9].incorrect_answer]
+//array for questions
+    const BigArrayDataQuestions = [
+        QuestionsArray0[0],QuestionsArray1[0],QuestionsArray2[0],QuestionsArray3[0],QuestionsArray4[0],
+        QuestionsArray5[0],QuestionsArray6[0],QuestionsArray7[0],QuestionsArray8[0],QuestionsArray9[0]
+        ]
+////array for answers
+    const BigArrayDataAnswers = [
+        QuestionsArray0[1],QuestionsArray1[1],QuestionsArray2[1],QuestionsArray3[1],QuestionsArray4[1],
+        QuestionsArray5[1],QuestionsArray6[1],QuestionsArray7[1],QuestionsArray8[1],QuestionsArray9[1]
+        ]
    
-     // question0
-   const question3 = res.data.results[3].question
-   const answer3 = res.data.results[3].correct_answer
-   const incorrect3 = res.data.results[3].incorrect_answers
-   
-     // question0
-   const question4 = res.data.results[4].question
-   const answer4 = res.data.results[4].correct_answer
-   const incorrect4 = res.data.results[4].incorrect_answers
-   
-     // question0
-   const question5 = res.data.results[5].question
-   const answer5 = res.data.results[5].correct_answer
-   const incorrect5 = res.data.results[5].incorrect_answers
-   
-     // question0
-   const question6 = res.data.results[6].question
-   const answer6 = res.data.results[6].correct_answer
-   const incorrect6 = res.data.results[6].incorrect_answers
-   
-     // question0
-   const question7 = res.data.results[7].question
-   const answer7 = res.data.results[7].correct_answer
-   const incorrect7 = res.data.results[7].incorrect_answers
-   
-     // question0
-   const question8 = res.data.results[8].question
-   const answer8 = res.data.results[8].correct_answer
-   const incorrect8 = res.data.results[8].incorrect_answers
-   
-     // question0
-   const question9 = res.data.results[9].question
-   const answer9 = res.data.results[9].correct_answer
-   const incorrect9 = res.data.results[9].incorrect_answers  
+
+//display question
+ function displayQuestion(params) {
+    
+ }
+
+
+        quesionsArea.append(BigArrayDataQuestions[0])
+        let currentquestion = 0
+//buzzer click checks if correct answer is true or not
+      buzzer.on('click', () =>{
+        let currentCorrectAnswer = 0
+        const A = BigArrayDataAnswers[currentCorrectAnswer]
+        let score = 0
+        let input = userAnswer.val()
+        if(input === A){
+            movetoNextQuestion()
+            currentCorrectAnswer++
+            score++
+            console.log(score,currentCorrectAnswer,currentquestion)
+        }else{
+            //learn how to append text once then disapear after buzzer is clicked 👉 to solve problem use innertextHTML instead of append
+            document.getElementById('answerList').innerHTML = 'incorrrect'
+            score--           
+        }
+
+
+        function movetoNextQuestion(){
+            currentquestion++
+            if(currentquestion < BigArrayDataQuestions.length){
+                displayQuestion(BigArrayDataQuestions[currentquestion])
+            }
+
+
+            const Q = BigArrayDataQuestions[currentquestion]
+            document.getElementById('boardQuestions').innerHTML = Q
+            }
+      })
+
+//   console.log(allCorrect_AnswersArray[5])  
+
+
 }
+maingame()
+}
+
+
 
 
 //question
