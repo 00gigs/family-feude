@@ -77,20 +77,21 @@ async function startGame(token){
         QuestionsArray5[1],QuestionsArray6[1],QuestionsArray7[1],QuestionsArray8[1],QuestionsArray9[1]
         ]
    
-
+        let currentquestion = 0
+        let score = 0
 //display question
- function displayQuestion(params) {
-    
+ function displayQuestion(question) {
+
+    const Q = BigArrayDataQuestions[currentquestion]
+    document.getElementById('boardQuestions').innerHTML = Q
  }
 
 
-        quesionsArea.append(BigArrayDataQuestions[0])
-        let currentquestion = 0
+       
 //buzzer click checks if correct answer is true or not
       buzzer.on('click', () =>{
         let currentCorrectAnswer = 0
         const A = BigArrayDataAnswers[currentCorrectAnswer]
-        let score = 0
         let input = userAnswer.val()
         if(input === A){
             movetoNextQuestion()
@@ -98,7 +99,7 @@ async function startGame(token){
             score++
             console.log(score,currentCorrectAnswer,currentquestion)
         }else{
-            //learn how to append text once then disapear after buzzer is clicked 👉 to solve problem use innertextHTML instead of append
+            //learn how to append text once then disapear after buzzer is clicked 👉 to solve problem use innertextHTML instead of append it will show in same spot evertyime
             document.getElementById('answerList').innerHTML = 'incorrrect'
             score--           
         }
@@ -108,24 +109,16 @@ async function startGame(token){
             currentquestion++
             if(currentquestion < BigArrayDataQuestions.length){
                 displayQuestion(BigArrayDataQuestions[currentquestion])
+            }else{
+                null
             }
-
-
-            const Q = BigArrayDataQuestions[currentquestion]
-            document.getElementById('boardQuestions').innerHTML = Q
             }
       })
 
-//   console.log(allCorrect_AnswersArray[5])  
+      displayQuestion(BigArrayDataQuestions[currentquestion])
+
 
 
 }
 maingame()
 }
-
-
-
-
-//question
-//correct_answers
-//incorrect_answers[0][1][2](each array item = incorrect question use these to show low survey responses )
