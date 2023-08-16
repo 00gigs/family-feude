@@ -5,26 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
  <!-- trival display board -->
-<div id="Page-container">
+<div id="Page-container" >
     <!-- start game -->
-    <input type="button" value="START GAME" id="start">
+    <input type="button" value="START GAME" id="start" class="btn btn-success">
     <!-- score -->
         <div id="score" class="score"><!--post score--></div>
         <!-- board -->
             <div id="boardArea" class="board">
-                <h2 id="boardQuestions" class="board"><!-- use DOM to display trival questions from API here --></h2>
+                <h2 id="boardQuestions" class="display-2"><!-- use DOM to display trival questions from API here --></h2>
             </div>
-                    <input type="text" id="userAnswer">
-                    <button type="button" id="submitBtn">Buzzer</button>
-                   <button id="nextButton">Next</button> 
+                    <input type="text" id="userAnswer" class="form-control" >
+                    <button type="button" id="submitBtn" class="btn btn-primary">Buzzer</button>
+                   <button id="nextButton" class="btn btn-light">Next</button> 
                         <div id="result" class="answer">
-                            <ul id="Incorrect" class="answer">
+                            <ul id="Incorrect" class="blockquote"">
                             <!-- populate answers and add evt target to each question -->
                             </ul>
-                            <div id="Correct" style="display: none;"></div>
+                            <div id="Correct" style="display: none;" class="blockquote"></div>
                                 <!-- populate answers and add evt target to each question -->
                                 
                         </div>
@@ -43,4 +44,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="feud.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>
