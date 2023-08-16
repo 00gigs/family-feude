@@ -1,12 +1,12 @@
-
-
+const Correct = document.getElementById('Correct')
 const quesionsArea = $('#boardQuestions')
-const answerList = $('#answerList')
+const Incorrect = $('#Incorrect')
 const startbtn = $('#start')
 const buzzer = $('#submitBtn')
 const userAnswer = $('#userAnswer')
 const baseURL = 'https://opentdb.com/'
 const url = 'api.php'
+const nextButton = document.getElementById('nextButton')
 
 //starts then disables start button
 startbtn.on('click', disableButton);
@@ -76,7 +76,10 @@ async function startGame(token){
         QuestionsArray0[1],QuestionsArray1[1],QuestionsArray2[1],QuestionsArray3[1],QuestionsArray4[1],
         QuestionsArray5[1],QuestionsArray6[1],QuestionsArray7[1],QuestionsArray8[1],QuestionsArray9[1]
         ]
-   
+        
+
+        //changing variables
+        let currentCorrectAnswer = 0
         let currentquestion = 0
         let score = 0
 //display question
@@ -90,35 +93,53 @@ async function startGame(token){
        
 //buzzer click checks if correct answer is true or not
       buzzer.on('click', () =>{
-        let currentCorrectAnswer = 0
+        
         const A = BigArrayDataAnswers[currentCorrectAnswer]
         let input = userAnswer.val()
         if(input === A){
-            movetoNextQuestion()
-            currentCorrectAnswer++
             score++
-            console.log(score,currentCorrectAnswer,currentquestion)
+          Correct.innerHTML = `Correct Your score is now ${score}`
+
+          
+          Correct.style.display = 'block'; // Show the message
+
+         setTimeout(function() {
+    Correct.style.display = 'none'; // Hide the message after a delay
+            }, 3000); // 3000 milliseconds (3 seconds) delay
+
+            movetoNextQuestion()
+            
         }else{
             //learn how to append text once then disapear after buzzer is clicked 👉 to solve problem use innertextHTML instead of append it will show in same spot evertyime
-            document.getElementById('answerList').innerHTML = 'incorrrect'
-            score--           
+            document.getElementById('Incorrect').innerHTML = `INCORRECT Your score is ${score}`
+            score-- 
+                 
         }
 
-
-        function movetoNextQuestion(){
-            currentquestion++
-            if(currentquestion < BigArrayDataQuestions.length){
-                displayQuestion(BigArrayDataQuestions[currentquestion])
-            }else{
-                null
-            }
-            }
       })
+
+    
+      function movetoNextQuestion(){
+        currentCorrectAnswer++
+        currentquestion++
+        if(currentquestion < BigArrayDataQuestions.length){
+            displayQuestion(BigArrayDataQuestions[currentquestion])
+            document.getElementById('Incorrect').innerHTML = ''
+           
+              
+        }else{
+           null
+        }
+        }
+      nextButton.addEventListener("click", movetoNextQuestion);
+
 
       displayQuestion(BigArrayDataQuestions[currentquestion])
 
 
 
 }
+
+
 maingame()
 }
